@@ -1,10 +1,9 @@
 use log::info;
 
-pub fn form_action(script: &str) {
+pub fn perform_action(script: &str) {
     info!("Executing script '{}'", script);
 
-    std::process::Command::new("sh")
-        .arg(script)
+    std::process::Command::new(script)
         .output()
         .expect("Failed to execute script.");
 
