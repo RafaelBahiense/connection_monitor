@@ -153,6 +153,7 @@ mod tests {
             port: 8080,
             timeout: 60,
             interval: 5,
+            script: "./test.sh".to_string(),
         };
         let monitor = Monitor::new(args).unwrap();
         assert_eq!(monitor.pid, std::process::id() as i32);
@@ -168,6 +169,7 @@ mod tests {
             port: 8080,
             timeout: 60,
             interval: 5,
+            script: "./test.sh".to_string(),
         };
         let monitor = Monitor::new(args).unwrap();
         assert!(monitor.is_process_running().unwrap());
@@ -180,6 +182,7 @@ mod tests {
             port: 8080,
             timeout: 60,
             interval: 5,
+            script: "./test.sh".to_string(),
         };
         let monitor = Monitor::new(args).unwrap();
         let connections = monitor.check_established_connections();
