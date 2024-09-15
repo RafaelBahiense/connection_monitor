@@ -67,7 +67,7 @@ impl Monitor {
                                 perform_action(&self.script);
                                 *start_time = Instant::now();
                             } else {
-                                info!(
+                                debug!(
                                     "No established connections. Timer running for {} seconds.",
                                     elapsed.as_secs()
                                 );
@@ -103,17 +103,17 @@ impl Monitor {
             }
         };
 
-        let tcp_entries = match process.tcp() {
-            Ok(entries) => entries,
-            Err(e) => {
-                let msg = format!("Failed to get TCP connections: {}", e);
-                error!("{}", msg);
-                return Err(msg);
-            }
-        };
+        let tcp_entries = process
+            .tcp()
+            .map_err(|e| format!("Failed to get TCP connections: {}", e))?;
 
-        let established_connections = tcp_entries
-            .iter()
+        let tcp6_entries = process
+            .tcp6()
+            .map_err(|e| format!("Failed to get TCP6 connections: {}", e))?;
+
+        let all_tcp_entries = tcp_entries.iter().chain(tcp6_entries.iter());
+
+        let established_connections = all_tcp_entries
             .filter(|entry| entry.state == procfs::net::TcpState::Established)
             .filter(|entry| entry.local_address.port() == self.port)
             .cloned()
