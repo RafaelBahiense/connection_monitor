@@ -57,7 +57,7 @@ jobs:
 
       - name: Get package version
         id: version
-        run: echo "VERSION=$(cargo metadata --format-version=1 | jq -r '.packages[0].version')" >> $GITHUB_ENV
+        run: echo "VERSION=$(cargo metadata --format-version=1 | jq -r '.packages[] | select(.name==\"connection_monitor\") | .version')" >> $GITHUB_ENV
 
       - name: Upload deb package
         uses: softprops/action-gh-release@v1
