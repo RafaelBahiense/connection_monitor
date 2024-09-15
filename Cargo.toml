@@ -1,8 +1,8 @@
 [package]
 name = "connection_monitor"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
-license = "MIT"
+license-file = "LICENSE"
 description = "A tool to monitor connections of a process and perform a action when no connections are found."
 authors = ["Rafael Bahiense Brasão"]
 
