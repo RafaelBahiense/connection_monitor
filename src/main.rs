@@ -2,7 +2,7 @@ use crate::args::Args;
 use crate::logger::init_logger;
 use crate::monitor::Monitor;
 use clap::Parser;
-use log::error;
+use log::{error, LevelFilter};
 use std::error::Error;
 
 mod actions;
@@ -11,9 +11,13 @@ mod logger;
 mod monitor;
 
 fn main() {
-    init_logger();
+    let args = Args::parse();
 
-    let result = run();
+    let level_filter = LevelFilter::from(args.log_level.clone());
+
+    init_logger(level_filter);
+
+    let result = run(args);
 
     if let Err(e) = result {
         error!("Error: {}", e);
@@ -21,9 +25,7 @@ fn main() {
     }
 }
 
-fn run() -> Result<(), Box<dyn Error>> {
-    let args = Args::parse();
-
+fn run(args: Args) -> Result<(), Box<dyn Error>> {
     let mut monitor = Monitor::new(args)?;
     monitor.start()?;
 
