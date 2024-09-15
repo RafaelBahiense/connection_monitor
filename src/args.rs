@@ -38,4 +38,3 @@ impl From<LogLevel> for LevelFilter {
         }
     }
 }
-
