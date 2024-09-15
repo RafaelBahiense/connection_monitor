@@ -50,6 +50,7 @@ jobs:
 
       - name: Build and test
         run: |
+          cargo build --release
           cargo test --release
 
       - name: Create deb package
