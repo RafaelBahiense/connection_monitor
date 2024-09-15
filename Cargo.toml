@@ -1,0 +1,24 @@
+[package]
+name = "connection_monitor"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "A tool to monitor connections of a process and perform a action when no connections are found."
+authors = ["Rafael Bahiense Brasão"]
+
+[dependencies]
+clap = { version = "4.5.17", features = ["derive"] }
+procfs = "0.16.0"
+log = "0.4.22"
+simple_logger = "5.0.0"
+
+[package.metadata.deb]
+maintainer = "Rafael Bahiense Brasão <rafaelbahiense@id.uff.br>"
+copyright = "2024, Rafael Bahiense Brasão <rafaelbahiense@id.uff.br>"
+extended-description = """\
+This tool monitors the connections of a process and performs an action when no connections are found. 
+It is useful to monitor the connections of a process and do some action if is not being used anymore.
+"""
+depends = "$auto"
+section = "utility"
+priority = "optional"
